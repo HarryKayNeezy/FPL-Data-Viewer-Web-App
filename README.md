@@ -98,10 +98,10 @@ If you're running into CORS issues when fetching data, you may need to set up a 
 This allows your app to make requests to the FPL API without getting blocked due to CORS.  
 
 ## Technologies Used
-React: Frontend library for building user interfaces
-Axios: For making HTTP requests to the FPL API
-Node.js: Runtime for executing JavaScript code server-side <!-- Nodejs will be used for chat app integration -->
-HTML5 & CSS3: Markup and styling  
+- React: Frontend library for building user interfaces
+- Axios: For making HTTP requests to the FPL API
+- Node.js: Runtime for executing JavaScript code server-side <!-- Nodejs will be used for chat app integration -->
+- HTML5 & CSS3: Markup and styling  
 
 
 ## Contributing
