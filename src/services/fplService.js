@@ -61,8 +61,27 @@ export const getLiveEventData = async (eventId) => {
 };
 
 
+// fetch set piece notes from teams
+export const getSetPieceNotes = async () => {
+  const response = await axios.get(`${BASE_URL}/team/set-piece-notes/`);
+  return response.data;
+};
+
+// fetch most valuable teams
+export const getMostValuableTeams = async () => {
+  const response = await axios.get(`${BASE_URL}/stats/most-valuable-teams/`);
+  return response.data;
+};
+
+// fetch best fpl classic leagues in the world
+export const getBestClassicLeagues = async () => {
+  const response = await axios.get(`${BASE_URL}/stats/best-classic-private-leagues/`);
+  return response.data;
+};
 
 
+
+// -- to fix: below endpoints --
 // fetch h2h league standings
 export const getH2HLeagueStandings = async (leagueId) => {
   const response = await axios.get(`${BASE_URL}/leagues-h2h/${leagueId}/standings/`); //fix

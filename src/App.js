@@ -13,6 +13,9 @@ import {
   getH2HLeagueStandings,
   getLiveEventData,
   getTransfersData,
+  getSetPieceNotes,
+  getMostValuableTeams,
+  getBestClassicLeagues,
 } from "./services/fplService";
 
 const App = () => {
@@ -28,6 +31,9 @@ const App = () => {
   const [h2hLeagueFixtures, setH2HLeagueFixtures] = useState(null);
   const [liveEventData, setLiveEventData] = useState(null);
   const [transfersData, setTransfersData] = useState(null);
+  const [setPieceNotes, setSetPieceNotes] = useState(null);
+  const [mostValuableTeams, setMostValuableTeams] = useState(null);
+  const [bestClassicLeagues, setBestClassicLeagues] = useState(null);
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
@@ -187,6 +193,45 @@ const App = () => {
     setLoading(false);
   };
 
+  //fetch setPiece notes data
+  const fetchSetPieceNotes = async () => {
+    setLoading(true);
+    try{
+      const data = await getSetPieceNotes();
+      setSetPieceNotes(data);
+      setActiveSection("setPieceNotes");
+    } catch(error) {
+      console.error("Error fetching set piece notes data:", error);
+    }
+    setLoading(false);
+  };
+
+  //fetch most valuable teams data
+  const fetchMostValuableTeams = async () => {
+    setLoading(true);
+    try{
+      const data = await getMostValuableTeams();
+      setMostValuableTeams(data);
+      setActiveSection("mostValuableTeams");
+    } catch(error) {
+      console.error("Error fetching set piece notes data:", error);
+    }
+    setLoading(false);
+  };
+
+  //fetch best fpl classic leagues data
+  const fetchBestClassicLeagues = async () => {
+    setLoading(true);
+    try{
+      const data = await getBestClassicLeagues();
+      setBestClassicLeagues(data);
+      setActiveSection("bestClassicLeagues");
+    } catch(error) {
+      console.error("Error fetching set piece notes data:", error);
+    }
+    setLoading(false);
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h1> Fantasy Premier League (FPL) Data Viewer </h1>
@@ -217,6 +262,9 @@ const App = () => {
         <button onClick={() => fetchLiveEventData(1)}>
           Fetch Live Event Data (Event ID: 1)
         </button>
+        <button onClick={fetchSetPieceNotes}> Fetch All Teams SetPieces Notes </button>
+        <button onClick={fetchMostValuableTeams}> Fetch Most Valuable Teams </button>
+        <button onClick={fetchBestClassicLeagues}> Fetch Best Classic Leagues </button>
         {/* fix these */}
         {/* <button onClick={() => fetchH2HLeagueStandings(100)}>
           Fetch H2H League Standings (League ID: 100)
@@ -310,6 +358,27 @@ const App = () => {
         <div key="transfersData">
           <h2>Transfers Data</h2>
           <pre>{JSON.stringify(transfersData, null, 2)}</pre>
+        </div>
+      )}
+
+      {activeSection === "setPieceNotes" && setPieceNotes && (
+        <div key="setPieceNotes">
+          <h2> Fetch All Teams SetPieces Notes Including BottleJobs Arsenal L0L </h2>
+          <pre>{JSON.stringify(setPieceNotes, null, 2)}</pre>
+        </div>
+      )}
+
+      {activeSection === "mostValuableTeams" && setMostValuableTeams && (
+        <div key="mostValuableTeams">
+          <h2> Fetch Most Valuable Teams </h2>
+          <pre>{JSON.stringify(mostValuableTeams, null, 2)}</pre>
+        </div>
+      )}
+
+      {activeSection === "bestClassicLeagues" && setBestClassicLeagues && (
+        <div key="bestClassicLeagues">
+          <h2> Fetch Best FPL Classic Leagues </h2>
+          <pre>{JSON.stringify(bestClassicLeagues, null, 2)}</pre>
         </div>
       )}
     </div>
