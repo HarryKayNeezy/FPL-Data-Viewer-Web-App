@@ -17,6 +17,7 @@ import {
   getMostValuableTeams,
   getBestClassicLeagues,
 } from "./services/fplService";
+import Chat from "./server/Chat";
 
 const App = () => {
   const [generalInfo, setGeneralInfo] = useState(null);
@@ -36,6 +37,11 @@ const App = () => {
   const [bestClassicLeagues, setBestClassicLeagues] = useState(null);
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [showChat, setShowChat] = useState(false);
+
+  const toggleChat = () => {
+    setShowChat(!showChat);
+  };
 
   // fetch general info
   const fetchGeneralInfo = async () => {
@@ -265,6 +271,9 @@ const App = () => {
         <button onClick={fetchSetPieceNotes}> Fetch All Teams SetPieces Notes </button>
         <button onClick={fetchMostValuableTeams}> Fetch Most Valuable Teams </button>
         <button onClick={fetchBestClassicLeagues}> Fetch Best Classic Leagues </button>
+        <button onClick={toggleChat} style={{marginRight:'10px', padding: '10px 15px'}}>
+          {showChat ? 'Hide Chat' : 'Open Chat'}
+        </button>
         {/* fix these */}
         {/* <button onClick={() => fetchH2HLeagueStandings(100)}>
           Fetch H2H League Standings (League ID: 100)
@@ -276,6 +285,8 @@ const App = () => {
       </div>
 
       {loading && <p> Loading ... </p>}
+
+      {showChat && <Chat/>}
 
       {activeSection === "generalInfo" && generalInfo && (
         <div key="generalInfo">
